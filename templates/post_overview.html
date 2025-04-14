@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tuple Grid</title>
+    <style>
+        table {
+            width: auto;
+            font-size: 14px;
+            border-collapse: collapse;
+            margin: 20px auto;
+        }
+        th, td {
+            padding: 5px;
+            border: 1px solid #ddd;
+            text-align: left;
+            text-wrap: wrap;
+        }
+        th {
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+    <form method="get" action="/posts">
+        <input type="hidden" name="page" value="{{ page }}">
+        <label>
+          <input type="checkbox" name="translated" value="true"
+                 {% if translated %} checked {% endif %}
+                 onchange="this.form.submit()">
+          Show Translated
+        </label>
+      </form>
+
+    <table>
+        <tr>
+            <th>Post ID</th>
+            <th>Title</th>
+            <th>Date</th>
+            <th>User</th>
+        </tr>
+        {% for row in data %}
+        <tr>
+            <td><a href="{{ url_for('post', post_id=row[0]) }}">{{ row[0] }}</a></td>
+            <td>{{ row[1] }}</td>
+            <td>{{ row[2] }}</td>
+            <td><a href="{{ url_for('user_posts', user=row[3]) }}">{{ row[3] }}</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <div style="text-align:center; margin-top: 20px;">
+        {% if page > 1 %}
+            <a href="/posts?page={{ page - 1 }}{% if translated %}&translated=true{% endif %}">« Prev</a>
+        {% endif %}
+    
+        {% for p in range(1, total_pages + 1) %}
+            {% if p == page %}
+                <strong>[{{ p }}]</strong>
+            {% else %}
+                <a href="/posts?page={{ p }}{% if translated %}&translated=true{% endif %}">{{ p }}</a>
+            {% endif %}
+        {% endfor %}
+    
+        {% if page < total_pages %}
+            <a href="/posts?page={{ page + 1 }}{% if translated %}&translated=true{% endif %}">Next »</a>
+        {% endif %}
+    </div>
+</body>
+</html>

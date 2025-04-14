@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .text {
+            max-width: 700px;
+            margin: 40px auto;
+            padding: 20px;
+            border-radius: 12px;
+            background-color: #f9f9f9;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            font-family: Arial, sans-serif;
+        }
+
+        .post-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .post-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 0;
+            flex: 1;
+        }
+
+        .post-meta {
+            text-align: right;
+            font-size: 12px;
+            color: #666;
+            white-space: nowrap;
+            margin-left: 20px;
+        }
+
+        .post-content {
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .comments-section {
+            margin-top: 40px;
+        }
+
+        .comments-section h2 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .comment-box {
+            background-color: #f5f5f5;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .comment-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .comment-content p {
+            margin: 0;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .comments-container {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <form method="get" action="{{ url_for('post', post_id=post_id) }}">
+        <label>
+            <input type="checkbox" name="translated" value="true"
+                    {% if translated %} checked {% endif %}
+                onchange="this.form.submit()">
+            Show Translated
+        </label>
+    </form>
+
+    <div class="text">
+        <div class="post-header">
+            <h1 class="post-title">{{ data["Title"] }}</h1>
+            <div class="post-meta">
+                <span class="post-date">{{ data["Date"] }}</span>
+                <span class="post-user">{{ data["NaverID"] }}</span>
+            </div>
+        </div>
+        <div class="post-content">
+            <p>{{ data["Content"] }}</p>
+        </div>
+        <div class="post-images">
+            {% for image_url in data["Images"] %}
+                <img src="{{ image_url }}" alt="Post Image">
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="comments-section">
+        <div class="comments-container">
+        <h2>Comments</h2>
+            {% for comment in data["Comments"] %}
+                <div class="comment-box">
+                    <div class="comment-header">
+                        <span class="comment-user">{{ comment["NaverID"] }}</span>
+                        <span class="comment-date">{{ comment["Date"] }}</span>
+                    </div>
+                    <div class="comment-content">
+                        <p>{{ comment["Content"] }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    
+</body>
