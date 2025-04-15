@@ -1,40 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Tuple Grid</title>
-    <style>
-        table {
-            width: auto;
-            font-size: 14px;
-            border-collapse: collapse;
-            margin: 20px auto;
-        }
-        th, td {
-            padding: 5px;
-            border: 1px solid #ddd;
-            text-align: left;
-            text-wrap: wrap;
-        }
-        th {
-            background-color: #f0f0f0;
-        }
-        
-        #top-bar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background-color: white;
-            padding: 10px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            z-index: 1000;
-            text-align: left;
-        }
-        
-        body {
-            padding-top: 60px; 
-        }
-    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <div id="top-bar">
