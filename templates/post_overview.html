@@ -18,18 +18,37 @@
         th {
             background-color: #f0f0f0;
         }
+        
+        #top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: white;
+            padding: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            z-index: 1000;
+            text-align: left;
+        }
+        
+        body {
+            padding-top: 60px; 
+        }
     </style>
 </head>
 <body>
-    <form method="get" action="/posts">
-        <input type="hidden" name="page" value="{{ page }}">
-        <label>
-          <input type="checkbox" name="translated" value="true"
-                 {% if translated %} checked {% endif %}
-                 onchange="this.form.submit()">
-          Show Translated
-        </label>
-      </form>
+    <div id="top-bar">
+        <form method="get" action="{{ request.path }}">
+            <input type="hidden" name="page" value="{{ page }}">
+            <label>
+              <input type="checkbox" name="translated" value="true"
+                     {% if translated %} checked {% endif %}
+                     onchange="this.form.submit()">
+              Show Translated
+            </label>
+        </form>
+    </div>
+
 
     <table>
         <tr>
@@ -50,19 +69,19 @@
 
     <div style="text-align:center; margin-top: 20px;">
         {% if page > 1 %}
-            <a href="/posts?page={{ page - 1 }}{% if translated %}&translated=true{% endif %}">« Prev</a>
+            <a href="{{ request.path }}?page={{ page - 1 }}{% if translated %}&translated=true{% endif %}">« Prev</a>
         {% endif %}
     
         {% for p in range(1, total_pages + 1) %}
             {% if p == page %}
                 <strong>[{{ p }}]</strong>
             {% else %}
-                <a href="/posts?page={{ p }}{% if translated %}&translated=true{% endif %}">{{ p }}</a>
+                <a href="{{ request.path }}?page={{ p }}{% if translated %}&translated=true{% endif %}">{{ p }}</a>
             {% endif %}
         {% endfor %}
     
         {% if page < total_pages %}
-            <a href="/posts?page={{ page + 1 }}{% if translated %}&translated=true{% endif %}">Next »</a>
+            <a href="{{ request.path }}?page={{ page + 1 }}{% if translated %}&translated=true{% endif %}">Next »</a>
         {% endif %}
     </div>
 </body>

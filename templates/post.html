@@ -75,17 +75,36 @@
             max-width: 700px;
             margin: 0 auto;
         }
+
+        #top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: white;
+            padding: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            z-index: 1000;
+            text-align: left;
+        }
+        
+        body {
+            padding-top: 60px; 
+        }
     </style>
 </head>
 <body>
-    <form method="get" action="{{ url_for('post', post_id=post_id) }}">
-        <label>
-            <input type="checkbox" name="translated" value="true"
-                    {% if translated %} checked {% endif %}
-                onchange="this.form.submit()">
-            Show Translated
-        </label>
-    </form>
+    <div id="top-bar">
+        <form method="get" action="{{ url_for('post', post_id=post_id) }}">
+            <label>
+                <input type="checkbox" name="translated" value="true"
+                        {% if translated %} checked {% endif %}
+                    onchange="this.form.submit()">
+                Show Translated
+            </label>
+        </form>
+    </div>
+
 
     <div class="text">
         <div class="post-header">

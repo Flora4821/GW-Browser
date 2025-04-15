@@ -35,6 +35,7 @@ def get_post_display(translated:bool=False, condition=None):
     query = retrieve_columns(tables, columns, ids)
     if condition:
         query += condition
+    print(query)
     return execute_query(query)
 
 def get_post(postnumber, translated:bool=False):

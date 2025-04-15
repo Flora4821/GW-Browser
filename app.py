@@ -28,7 +28,7 @@ def user_posts(user):
     translated = request.args.get("translated", "false").lower() == "true"
     full_data = get_post_display(translated, f" WHERE U.naverID = \'{user}\'")
     page = int(request.args.get('page', 1))
-    per_page = 1000
+    per_page = 100
     offset = (page - 1) * per_page
     total_pages = (len(full_data) + per_page - 1) // per_page
 
